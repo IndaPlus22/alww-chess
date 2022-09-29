@@ -23,6 +23,7 @@ The following public functions are implemented under the public struct LocalMove
 |pub fn get_move_capture_flag(&self) -> usize | Returns a bit with either 1 or 0, the bit is the capture flag which determines if a move is quiet or a capturing move|
 |pub fn get_move_double_push_flag(&self) -> usize | Returns a bit with either 1 or 0, the bit is the double pawn push flag which determines if the pawn takes 1 or 2 "steps"|
 |pub fn print(&self) | Prints out all of the above.|
+
 LocalMove is used exclusively to store moved more efficiently.
 
 The following public const are implemented under the public struct Pieces:
