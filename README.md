@@ -5,7 +5,7 @@ rust chess engine
 The following public functions are implemented under the public struct Game:
 |Function| Description|
 |-----------|-------------|
-|pub fn new() -> Game | Initialises a new game. Due to me being a [redacted] this will need to be followed by init_bitboard() and update_occupancy() ![example init](img/Screenshot%202022-09-29%20at%2008.36.37.png)|
+|pub fn new() -> Game | Initialises a new game. Due to me being a [redacted] this will need to be followed by init_bitboard() and update_occupancy() [example init](img/Screenshot%202022-09-29%20at%2008.36.37.png)|
 |pub fn init_bitboard(&mut self) | Reset all the bitboards and sets the starting position. |
 |pub fn update_occupancy(&mut self) | Updates the occupancies bitboards by synchronizing them with the regular bitboards |
 |pub fn make_move(&mut self, &str ) | Moves a piece. The string is formatted as follows: "(From)(To)(Optional: Promotion Piece)". Example "E2E3", from E2 to E3 no promotion piece needed. Example PAWN "E7E8Q", from E7 to E8, promote to QUEEN|
