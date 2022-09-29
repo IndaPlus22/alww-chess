@@ -2251,4 +2251,9 @@ mod tests {
         assert_eq!(capture_flag, 0);
         assert_eq!(double_pawn_push, 0);
     }
+
+    #[test]
+    fn will_always_fail() {
+        panic!()
+    }
 }
