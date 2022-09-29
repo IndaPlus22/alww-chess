@@ -13,6 +13,8 @@ The following public functions are implemented under the public struct Game:
 |pub fn get_game_state(&self) -> GameState |Get the current game state.|
 |pub fn get_possible_moves(&self) -> <Vec<LocalMove>>| Returns all legal moves for the current board. See public struct LocalMove|
 
+
+
 The following public functions are implemented under the public struct LocalMove:
 |Function| Description|
 |-----------|-------------|
@@ -25,6 +27,8 @@ The following public functions are implemented under the public struct LocalMove
 |pub fn print(&self) | Prints out all of the above.|
 
 LocalMove is used exclusively to store moved more efficiently.
+
+
 
 The following public const are implemented under the public struct Pieces:
 |Const| Value|
@@ -42,12 +46,16 @@ The following public const are implemented under the public struct Pieces:
 |const queen: usize | 10|
 |const king: usize | 11|
 
+
+
 The following public values are implemented under the public enum GameState:
 |Value| Description|
 |-----------|-------------|
 |InProgress| Works|
 |Check| Works|
 |GameOver| Broken, as checkmates are not calculated it is very hard to know when it is game over|
+
+
 
 | Known bugs: | Description                                                                                                                                     |
 | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
