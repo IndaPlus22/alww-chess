@@ -1886,6 +1886,9 @@ impl Game {
     pub fn get_game_state(&mut self) -> GameState {
         return self.state;
     }
+    pub fn get_turn(&mut self) -> usize {
+        return self.side;
+    }
     pub fn get_possible_moves(&mut self) -> Vec<LocalMove> {
         let tmp = generate_moves(self.move_list, &self);
         let tmp2 = tmp.internal_Move(self);
