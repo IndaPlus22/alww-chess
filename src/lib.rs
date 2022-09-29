@@ -1,5 +1,5 @@
 use rand::Rng;
-use std::{io, num::Wrapping};
+use std::io;
 
 const ASCII_PIECES: [char; 13] = [
     'P', 'B', 'N', 'R', 'Q', 'K', 'p', 'b', 'n', 'r', 'q', 'k', '0',
@@ -2160,34 +2160,95 @@ impl LocalMove {
 mod tests {
     // use std::slice::range;
 
+    use crate::get_index_of_least_significant_bit;
+    use crate::MoveList;
+
     use super::Game;
     use super::GameState;
     use super::LocalMove;
-    use super::*;
+    use super::Pieces;
+    use super::SquareLabels;
 
     // check test framework
     #[test]
     fn it_works() {
         assert_eq!(2 + 2, 4);
     }
+    // --------------------------
+    // ###### struct Game ######
+    // --------------------------
+    ///Checks the amount if possible moves from the starting board
     #[test]
-    fn test_moves() {
+    fn game_moves() {
         let mut game = Game::new();
-        // game.init_bitboard();
-        // game.update_occupancy();
-        // let moves = game.get_possible_moves();
-        // assert_eq!(moves.len(), 20)
+        game.init_bitboard();
+        game.update_occupancy();
+        let moves = game.get_possible_moves();
+        assert_eq!(moves.len(), 20);
     }
 
-    // example test
+    ///checks that the make_move works
+    #[test]
+    fn game_move() {
+        let mut game = Game::new();
+        game.init_bitboard();
+        game.update_occupancy();
+        game.make_move("E2E4");
+        assert_eq!(
+            (game.bitboards[0] & (1u64 << 36)),
+            (1u64 << SquareLabels::E4 as u64)
+        );
+    }
+    ///check that side begins with WHITE and then changes to BLACK after a move is made
+    #[test]
+    fn game_side() {
+        let mut game = Game::new();
+        game.init_bitboard();
+        game.update_occupancy();
+        let mut side = game.side;
+        assert_eq!(side, 0);
+        game.make_move("E2E4");
+        side = game.side;
+        assert_eq!(side, 1);
+    }
+
     // check that game state is in progress after initialisation
-    // #[test]
-    // fn game_in_progress_after_init() {
+    #[test]
+    fn game_in_progress_after_init() {
+        let mut game = Game::new();
+        assert_eq!(game.get_game_state(), GameState::InProgress);
+    }
+    // --------------------------
+    // #### struct LocalMove ####
+    // --------------------------
 
-    //     let game = Game::new();
-
-    //     println!("{:?}", game);
-
-    //     assert_eq!(game.get_game_state(), GameState::InProgress);
-    // }
+    ///checks that the encode and decode works
+    #[test]
+    fn localmove() {
+        let mut game = Game::new();
+        game.init_bitboard();
+        game.update_occupancy();
+        let mut _move = LocalMove::init();
+        _move.encode_move(
+            SquareLabels::A7 as usize,
+            SquareLabels::A8 as usize,
+            0,
+            Pieces::QUEEN as usize,
+            0,
+            0,
+        );
+        game.game_variables.move_list.add(_move);
+        let source_sq = _move.get_move_source();
+        let target_sq = _move.get_move_target();
+        let piece = _move.get_move_piece();
+        let promoted = _move.get_move_promoted();
+        let capture_flag = _move.get_move_capture_flag();
+        let double_pawn_push = _move.get_move_double_push_flag();
+        assert_eq!(source_sq, SquareLabels::A7 as usize);
+        assert_eq!(target_sq, SquareLabels::A8 as usize);
+        assert_eq!(piece, Pieces::PAWN as usize);
+        assert_eq!(promoted, Pieces::QUEEN as usize);
+        assert_eq!(capture_flag, 0);
+        assert_eq!(double_pawn_push, 0);
+    }
 }
