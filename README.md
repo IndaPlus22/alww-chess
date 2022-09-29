@@ -9,8 +9,9 @@ The following public functions are implemented under the public struct Game:
 |pub fn init_bitboard(&mut self) | Reset all the bitboards and sets the starting position. |
 |pub fn update_occupancy(&mut self) | Updates the occupancies bitboards by synchronizing them with the regular bitboards |
 |pub fn make_move(&mut self, &str ) | Moves a piece. The string is formatted as follows: "(From)(To)(Promotion Piece)". Example "E2E3", from E2 to E3 no promotion piece needed. Example PAWN "E7E8Q", from E7 to E8, promote to QUEEN|
-|pub fn set_promotion(&mut self, \_piece: &str) -> () | Removed. Promotions are made inline with the make_move() function. See examples below|
+|pub fn set_promotion(&mut self, piece: &str) -> () | Removed. Promotions are made inline with the make_move() function. See examples|
 |pub fn get_game_state(&self) -> GameState |Get the current game state.|
+|pub fn get_turn(&mut self) -> usize |Returns a bit which represents who's turn it is. If 0 it is White, if 1 it is Black|
 |pub fn get_possible_moves(&self) -> <Vec<LocalMove>>| Returns all legal moves for the current board. See public struct LocalMove|
 
 The following public functions are implemented under the public struct LocalMove:
@@ -20,8 +21,8 @@ The following public functions are implemented under the public struct LocalMove
 |pub fn get_move_target(&self) -> usize | Returns the target_square of a move, for example if the move was A2 -> A4, the source_square would be A4|
 |pub fn get_move_piece(&self) -> usize | Returns the value of the piece making the move, see public struct Pieces|
 |pub fn get_move_promoted(&self) -> usize | Returns the value of the pieces that the moving pieces is promoting to|
-|pub fn get_move_capture_flag(&self) -> usize | Returns a bit with either 1 or 0, the bit is the capture flag which determines if a move is quiet or a capturing move|
-|pub fn get_move_double_push_flag(&self) -> usize | Returns a bit with either 1 or 0, the bit is the double pawn push flag which determines if the pawn takes 1 or 2 "steps"|
+|pub fn get_move_capture_flag(&self) -> usize | Returns a bit which is the capture flag which determines if a move is quiet or a capturing move|
+|pub fn get_move_double_push_flag(&self) -> usize | Returns a bit which is the double pawn push flag which determines if the pawn takes 1 or 2 "steps"|
 |pub fn print(&self) | Prints out all of the above.|
 
 LocalMove is used exclusively to store moved more efficiently.
