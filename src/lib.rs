@@ -1877,11 +1877,12 @@ impl Game {
             move_list: MoveList::init(),
         }
     }
-    pub fn make_move(&mut self, move_string: &str) {
+    pub fn make_move(&mut self, move_string: &str) -> String {
         let parsed_move = parse_move(move_string, self);
         if (parsed_move._move != 0) {
             internal_make_move(parsed_move, self);
         }
+        self.boardstate_fen()
     }
     pub fn get_game_state(&mut self) -> GameState {
         return self.state;
@@ -1986,6 +1987,41 @@ impl Game {
         println!("    ----------------");
         println!("    A B C D E F G H");
         println!("\nCurrent turn: {}", SIDES[self.side]);
+    }
+    fn boardstate_fen(&self) -> String {
+        let mut fen: String = "".to_owned();
+        for rank in 0..8 {
+            if rank != 0 {
+                let mut str = "/";
+                fen.push_str(str);
+            }
+            let mut empty_count = 0;
+            for file in 0..8 {
+                let square_index = (rank << 3) + file;
+
+                let mut piece = 12;
+
+                for i in 0..12 {
+                    if ((self.bitboards[i] & (1u64 << square_index)) != 0) {
+                        piece = i;
+                    }
+                }
+                if piece == 12 {
+                    empty_count += 1;
+                    if (file != 7) {
+                        continue;
+                    }
+                }
+                if (empty_count != 0) {
+                    fen.push_str(empty_count.to_string().as_str());
+                }
+                if (piece != 12) {
+                    fen.push(ASCII_PIECES[piece]);
+                }
+                empty_count = 0;
+            }
+        }
+        fen
     }
 }
 
