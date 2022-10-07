@@ -54,7 +54,7 @@ The following public values are implemented under the public enum GameState:
 | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
 | Checkmate   | It is still possible to checkmate and since this means that there are no legal moves the game will stop/ a player will be unable to do anything |
 
-| Tests |
-| ----- |
+| Tests | Command: cargo test -- --nocapture --test-threads=1 |
+| ----- | --------------------------------------------------- |
 
 ![tests](img/tests.png)
